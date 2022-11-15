@@ -1,18 +1,10 @@
 // 소수인지 판별하는 함수
 function isPrime(x) {
-    for (let i = 2; i <= Math.sqrt(x); i++) {
+    for (let i = 2; i <= Math.sqrt(x); i++) { //? x의 루트x값까지만 찾는다.
       if (x % i === 0) return false;
     }
     return true;
   }
-  
-  //?? 다시 풀기 내답아님 
-  //?? 다시 풀기 내답아님 
-  //?? 다시 풀기 내답아님 
-  //?? 다시 풀기 내답아님 
-  //?? 다시 풀기 내답아님 
-  //?? 다시 풀기 내답아님 
-  //?? 다시 풀기 내답아님 
 
 function solution(n) {
     // 소수의 개수를 저장할 변수
