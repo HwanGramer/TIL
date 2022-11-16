@@ -46,3 +46,8 @@
     `ALTER TABLE 테이블이름 AUTO_INCREMENT = 100;`
 ***
 <br><br>
+
+# CONCAT과 CAST를 사용하여 만들어보기
+<br>
+<img width='300' src="https://user-images.githubusercontent.com/100682468/201892797-898902fc-f0f3-4ada-ad6b-2ed4bcc5c3d9.png"><br>
+`SELECT num , CONCAT(CAST(price AS CHAR(10)) , 'X' , CAST(amount AS CHAR(4)) , '=' ) AS '단가 X 수량' , price*amount AS '구매액' FROM buytbl;`
