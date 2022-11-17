@@ -51,3 +51,20 @@
 <br>
 <img width='300' src="https://user-images.githubusercontent.com/100682468/201892797-898902fc-f0f3-4ada-ad6b-2ed4bcc5c3d9.png"><br>
 `SELECT num , CONCAT(CAST(price AS CHAR(10)) , 'X' , CAST(amount AS CHAR(4)) , '=' ) AS '단가 X 수량' , price*amount AS '구매액' FROM buytbl;`
+
+<br><br>
+
+
+# 피벗 구현하기
+<br>
+<img width='250' src="https://user-images.githubusercontent.com/100682468/202363382-dfee9c2d-e8e0-4d8a-9f78-2519793d1699.png"><br>
+
+이렇게만들면된다 <br>
+
+<img width='400' src="https://user-images.githubusercontent.com/100682468/202363666-9346f498-035a-4b55-9345-9c47715cf381.png"><br>
+`SELECT uName ,
+    SUM(IF(season='봄' , amount,0)) AS '봄',
+    SUM(IF(season='여름' , amount,0)) AS '여름',
+    SUM(IF(season='가을' , amount,0)) AS '가을',
+    SUM(IF(season='겨울' , amount,0)) AS '겨울',
+    SUM(amount) AS '합계' FROM pivotTest GROUP BY uName;`
