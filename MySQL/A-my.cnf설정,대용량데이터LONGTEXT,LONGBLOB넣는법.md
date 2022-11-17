@@ -185,3 +185,62 @@ SELECT movie_film FROM movietbl WHERE movie_id = 1
 <br>
 
 ### <em>/Users/maeng-yonghwan/Desktop/movies/폴더에 가보면 잘 저장되있는걸 볼 수 있다. 
+
+```
+CREATE DATABASE moviedb;
+
+USE moviedb;
+CREATE TABLE movietbl(
+	movie_id INT,
+	movie_title VARCHAR(30),
+	movie_director VARCHAR(20),
+	movie_star VARCHAR(20),
+	movie_script LONGTEXT,
+	movie_film LONGBLOB
+) DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO movietbl VALUES(
+    1 , '쉰들러 리스트' , '스틸버그' ,'리암 리슨', 
+    LOAD_FILE('/Users/maeng-yonghwan/Desktop/movies/Schindler.txt') ,
+    LOAD_FILE('/Users/maeng-yonghwan/Desktop/movies/Schindler.mp4')
+);
+
+INSERT INTO movietbl VALUES(
+    2 , '쇼생크 탈출' , '프랭크 다라본트' , '팀 로빈스',
+    LOAD_FILE('/Users/maeng-yonghwan/Desktop/movies/Shawshank.txt'), -- 파일을 업로드한다.
+    LOAD_FILE('/Users/maeng-yonghwan/Desktop/movies/Shawshank.mp4')
+);
+
+INSERT INTO movietbl VALUES(
+    3 , '라스트 모히칸' , '마이클 안' , '다니엘 데이 루이스',
+    LOAD_FILE('/Users/maeng-yonghwan/Desktop/movies/Mohican.txt'),
+    LOAD_FILE('/Users/maeng-yonghwan/Desktop/movies/Mohican.mp4')
+);
+
+TRUNCATE movietbl; -- 기존에 있던 행들을 모두 제거한다.
+
+-- null이 들어가있다.....
+-- 이유는 : 시스템변수인 max_allowed_packet변수가 기본값이 작아서 그렇다. 크게바꿔야 큰데이터를 넣을 수 있다.
+-- 그리고 업로드할 폴더가 보안상 허용이 되어야된다.
+SELECT * FROM movietbl;
+-- SHOW VARIABLES; 는 글로벌 환경변수를 볼 수 있다.
+SHOW variables LIKE 'max_allowed_packet'; -- 기본으로 67108864이라는 데이터가 나왔다. 6MB정도 되는거같다.
+SHOW variables LIKE 'secure_file_priv'; -- 기본으로 NULL이 들어가있다. 보안폴더이다. 내가 올릴폴더를 허용해주어야된다.
+
+-- mysql 환경변수 max_allowed_packet와 secure_file_priv변경하는법
+-- 1. MAC OS 기준으로 MySQL설정파일 my.cnf를 찾아야한다. (윈도우는 my.ini파일)
+-- 터미널에 mysql --help | grep my.cnf를 입력하면 my.cnf의 위치를 알 수 있다.
+-- 그걸 이용해서 vi 폴더이름/my.cnf를 해준다음 max_allowed_packet = 1024M , secure_file_priv = 보안을 허용할 폴더
+-- 이런식으로 설정해준다. 그리고 저장후 나간다음 mysql.server를 껏다가 킨다. 그럼 설정완료다. 
+-- 추가로 적어야될거. 설정파일 vi 수정하고 저장하고 나갈려면 esc -> :wq 하면된다. 
+
+SELECT movie_script FROM movietbl WHERE movie_id = 1 -- movie_id가 1인 컬럼의 movie_script를 가져온다 
+	INTO OUTFILE '/Users/maeng-yonghwan/Desktop/movies/Schindler_out.txt' -- 가져온 movie_sciprt를 밖에 폴더에 다운로드한다. 
+    -- INTO OUTFILE은 SELECT에서 나온 *텍스트데이터* 를 파일이름을 지정해서 내보낸다. OUTFILE은 텍스트를 내보낼때 사용된다.
+    LINES TERMINATED BY '\\n'; -- 줄바꿈 문자도 그대로 같이 저장한다는 의미 
+
+SELECT movie_film FROM movietbl WHERE movie_id = 1 -- movie_id가 1인 컬럼의 movie_script를 가져온다 
+	INTO DUMPFILE '/Users/maeng-yonghwan/Desktop/movies/Schindler_out.mp4' -- 가져온 movie_sciprt를 밖에 폴더에 다운로드한다. 
+    -- INTO DUMPFILE은 LONGBLOB형식에 맞는다. 
+
+```
