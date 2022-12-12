@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "esnext", 
+        //? 최신 자바스크립트
+        "module": "commonjs",
+        //? module은 자바스크립트 파일간 import문법을 구현할때 어떤 문법을 쓸지 정하는곳이다.
+        //? commonjs는 require문법 , es2015 , esnext는 import 문법을 사용한다.
+        //? 그래서 어느정도 IE호환성을 원한다면 es5 , commonjs각 국룰이다.
+        //? 근데 정말 신버전 자바스크립트만 표현가능한 그런 문법들이 있는데 예를 들어 Bigint()이런함수와 bigint타입
+        //? 이런것들은 exnext등으로 버전을 올려줘야 사용가능하다.
+    }   
+}
