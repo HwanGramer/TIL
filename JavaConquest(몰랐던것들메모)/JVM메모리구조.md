@@ -59,10 +59,59 @@ JVM이 정확히 어떻게 동작하는지에 대해
 - GC가 역할을 하는 시간은 언제인지 정확히 알 수 없다.
 
 
+<br>
+<br>
+
+
 ## Runtime Data Area
 
 - JVM의 메모리 영역으로 자바 애플리케이션을 실행할 때 사용되는 데이터들을 적재하는 영역이다.
 
 - Runtime Data Area영역에는 <b>Method Area</b> , <b>Heap Area</b> , <b>Stack Area</b> , <b>PC Register</b> , <b>Native Method Stack</b>로 나눠진다.
 
+<br>
+<br>
+
+# RuntimeDataArea 구조 
+
 ![RuntimeDataArea](./img/RuntimeDataArea.png)
+
+- Method area
+    
+    모든 쓰레드가 공유하는 메모리 영역이다. 메소드 영역은 클래스 , 인터페이스 , 메소드 , 필드 , Static 변수 등의 바이트 코드를 보관한다.
+
+<br>
+<br>
+
+- Heap area
+
+    모든 쓰레드가 공유하며, new 키워드로 생성된 객체와 배열이 생성되는 영역이다. 메소드 영역에 로드된 클래스만 생성이 가능하고 , Garbage Collector가 참조되지 않는 메모리를 확인하고 제거하는 영역이다.
+
+<br>
+<br>
+
+- Stack area
+
+    ![callstack](./img/callstack.png)
+    메서드 호출 시마다 각각의 스택 프레임이 생성된다. 그리고 그 메서드 안에서 사용되는 값들을 저장하고 , 호출된 메서드의 매개변수 , 지역변수 , 리턴 값 및 연산 시 일어나는 값들을 임시로 정장한다. 마지막으로 수행이 끝나면 프레임별로 삭제된다.
+
+<br>
+<br>
+
+- PC Register
+
+    쓰레드가 시작될 때 생성되며 , 생성될 때마다 생성되는 공간으로 쓰레드마다 하나씩 존재한다. 쓰레드가 어떤 부분을 무슨 명령으로 실행해야할 지에 대한 기록을 하는 부분으로 현재 수행중인 JVM명령의 주소를 갖습니다.
+
+<br>
+<br>
+
+- Native method stack
+
+    자바 외 언어로 작성된 네이티브 코드를 위한 메모리 영역이다.
+
+<br>
+<br>
+<br>
+<br>
+ 
+참고한 블로그 : https://steady-coding.tistory.com/305 , https://inpa.tistory.com/entry/JAVA-%E2%98%95-JVM-%EB%82%B4%EB%B6%80-%EA%B5%AC%EC%A1%B0-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%98%81%EC%97%AD-%EC%8B%AC%ED%99%94%ED%8E%B8
