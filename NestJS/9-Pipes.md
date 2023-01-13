@@ -115,3 +115,16 @@ Nest JS에서 기본적으로 사용할 수 있게 만들어 놓은 6가지의 �
 - DefaultValuePipe
 
 
+<br>
+
+<br>
+
+
+# 필요한 모듈
+
+class-validator , class-transformer
+
+    npm install class-validator class-transformer --save
+
+Documentation 페이지
+- https://github.com/typestack/class-validator#manual-validation
