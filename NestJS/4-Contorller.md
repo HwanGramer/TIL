@@ -31,7 +31,7 @@
 
 # Controller 생성하기
 
-    nest g controller 컨트롤러이름 --no-spec
+    nest g controller 모듈이름 --no-spec
 
 모듈을 생성하는것과 비슷하게 nestcli를 이용해서 컨트롤러를 생성할 수 있다.
 
