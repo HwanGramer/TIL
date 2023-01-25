@@ -79,5 +79,97 @@ Pure Javascript
 
 # TypeORM 사용하기
 
+TypeORM을 사용하기 위해서 설치해야하는 모듈
 
-여기서 부터 작성하기 여기서 부터 작성하기 여기서 부터 작성하기 여기서 부터 작성하기 여기서 부터 작성하기 여기서 부터 작성하기 
+<br>
+
+- @nestjs/typeorm
+    - NestJS에서 TypeORM을 사용하기 위해 연동시켜주는 모듈이다.
+
+- typeorm
+    - TypeORM 모듈
+
+- pg 
+    - PostgresSQL 데이터베이스를 사용하기 때문에 Postgres모듈을 다운받는다.
+
+<br>
+
+    npm install pg typeorm @nestjs/typeorm --save
+
+<br>
+
+NestJs TypeORM 문서 - https://docs.nestjs.com/techniques/database
+
+<br>
+
+
+설치를 다 했다면 typeORM 설정 파일을 만들어주자.
+
+<br>
+
+![callstack](./img/typeorm폴더.png)
+<br>
+    *src -> configs폴더생성 -> typeorm.config.ts 생성*
+
+
+<br>
+<br>
+
+***
+
+typeorm.config.ts작성 
+
+    import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+
+    export const typeORMconfig : TypeOrmModuleOptions = {
+        type : 'postgres',
+        host : 'localhost',
+        port : 5432,
+        username : 'postgres',
+        password : 'postgres',
+        database : 'board-app',
+        entities : [__dirname + '/../**/*.entity.{js,ts}'],
+        synchronize : true //? production 모드에서는 false로
+    }
+
+눈에 띄는 entities와 synchronize는 뭘까?
+
+- entities는 나중에 생성할 엔티티를 하나씩 넣어 줄 수도 있지만 아래 처럼 작성하면 모든 엔티티를 다 포함할 수 있게된다. 
+
+
+        { // 엔티티 전부 포함 
+        ...
+        "entities": ["src/bar/entities/**/*.ts"]
+        }
+
+
+        // 엔티티를 하나씩 추가
+        import {User} from "./payment/entity/User";
+        import {Post} from "./blog/entity/Post";
+        {
+        ...
+        "entities": [User, Post]
+        }
+
+- synchronize : true값을 주면 애플리케이션을 다시 실행할 때 엔티티안에서 수정된 컬럼의 길이 타입 변경값등을 해당 테이블을 DROP한 후 다시 생성해준다. <b>*synchronize true는 production 모드에서는 false로... 그렇지 않을 시 데이터를 잃을수 있다...*</b>
+
+
+<br>
+<br>
+
+
+⬇︎⬇︎⬇︎⬇︎⬇︎⬇︎⬇︎
+
+<br>
+
+### typeorm.config.ts 셋팅을 다 해줬다면 루드 Module(app.module.ts)에서 import 해주어야된다.
+
+    @Module({
+        imports: [TypeOrmModule.forRoot(typeORMconfig),UserModule, TestmoduleModule, BoardModule],
+        controllers: []
+    })
+    export class AppModule {}
+
+imports배열(모듈들이 있는)안에 TypeOrmModule.forRoot(typeORMconfig)를 추가해주면된다.
+
+*<b>forRoot안에 넣어준 설정은 모든 Sub-Module 부수적인 모듈들에 다 적용된다.</b>*
