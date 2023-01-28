@@ -173,3 +173,13 @@ typeorm.config.ts작성
 imports배열(모듈들이 있는)안에 TypeOrmModule.forRoot(typeORMconfig)를 추가해주면된다.
 
 *<b>forRoot안에 넣어준 설정은 모든 Sub-Module 부수적인 모듈들에 다 적용된다.</b>*
+
+
+
+다음 Entity생성하기 작성하기다음 Entity생성하기 작성하기다음 Entity생성하기 작성하기
+다음 Entity생성하기 작성하기다음 Entity생성하기 작성하기다음 Entity생성하기 작성하기
+다음 Entity생성하기 작성하기 
+다음 Entity생성하기 작성하기
+다음 Entity생성하기 작성하기
+ㅍ다음 Entity생성하기 작성하기
+다음 Entity생성하기 작성하기
