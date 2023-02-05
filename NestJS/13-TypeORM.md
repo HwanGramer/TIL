@@ -16,7 +16,7 @@
 # ORM
 
 *Object Relational Mapping*
-
+   
 <br>
 
 - 객체와 관계형 데이터베이스의 데이터를 자동으로 변형 및 연결하는 작업이다.
@@ -41,7 +41,7 @@
 
 typeORM
 
-    const boards = Board.find({ title: 'Hello' , status: 'PUBLIC' });
+    const boards = Board.find({ title: 'Hello' , status: 'PUBLIC' }); 
 
 <br>
 
